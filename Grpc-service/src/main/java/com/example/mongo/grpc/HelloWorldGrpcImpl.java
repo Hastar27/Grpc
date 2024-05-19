@@ -6,6 +6,9 @@ import com.example.mongo.stubs.HelloWorldServiceGrpc;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
+/**
+ * test
+ */
 @GrpcService
 public class HelloWorldGrpcImpl extends HelloWorldServiceGrpc.HelloWorldServiceImplBase {
 

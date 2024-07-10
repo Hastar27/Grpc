@@ -5,15 +5,55 @@ option java_multiple_files = true;
 
 message HelloWorldRequest {
   // a name to greet, default is "World"
-  optional string name = 1;
+  string name = 1;
 }
 
 message HelloWorldResponse {
   string greeting = 1;
 }
 
+enum Category {
+  CATEGORY_UNDEFINED = 0;
+  CATEGORY_SNACKS = 1;
+  CATEGORY_MILLETS = 2;
+  CATEGORY_SPICES = 3;
+}
+
+
+message GroceryItemRequest {
+  repeated GroceryItemProto groceryItem = 1;
+}
+
+message GroceryItemProto {
+  string id = 1;
+  string name = 2;
+  int32 quantity = 3;
+  Category category = 4;
+}
+
+message GetAllGroceryItemsResponse {
+  repeated GroceryItemProto groceryItemResponseDto = 1;
+}
+
+message GetGroceryItemByNameRequest {
+  string name = 1;
+}
+
+message GetGroceryItemByCategoryRequest {
+  Category category = 1;
+}
+
+message EmptyRequest {
+  string dummy = 1;
+}
+
 service HelloWorldService {
-
   rpc sayHello(HelloWorldRequest) returns (HelloWorldResponse);
+}
 
+service GroceryGrpcService {
+  rpc addGroceryItems(GroceryItemRequest) returns (GetAllGroceryItemsResponse);
+  rpc getAllGroceryItems(EmptyRequest) returns (GetAllGroceryItemsResponse);
+  rpc getGroceryItemByName(GetGroceryItemByNameRequest) returns (GroceryItemProto);
+  rpc getGroceryItemsByCategory(GetGroceryItemByCategoryRequest) returns (GroceryItemProto);
 }
